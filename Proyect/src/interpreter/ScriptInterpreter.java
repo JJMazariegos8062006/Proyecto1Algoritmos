@@ -1,69 +1,46 @@
 package interpreter;
 
-import model.ScriptStack;
-import crypto.MockCrypto;
+import java.util.*;
 
-import java.util.List;
+import opcodes.*;
 
 public class ScriptInterpreter {
 
-    private ScriptStack stack = new ScriptStack();
+    private Deque<String> stack = new ArrayDeque<>();
+    private boolean trace;
 
-    public boolean execute(List<String> script) {
+    public ScriptInterpreter(boolean trace) {
+        this.trace = trace;
+    }
 
-        try {
-            for (String token : script) {
+    public boolean execute(List<Object> script) {
 
-                switch (token) {
+        for (Object element : script) {
 
-                    case "OP_DUP":
-                        stack.push(stack.peek());
-                        break;
+            if (element instanceof String) {
 
-                    case "OP_DROP":
-                        stack.pop();
-                        break;
+                stack.push((String) element);
 
-                    case "OP_EQUAL":
-                        String a = stack.pop();
-                        String b = stack.pop();
-                        stack.push(a.equals(b) ? "1" : "0");
-                        break;
+            } else if (element instanceof BasicOpCode) {
 
-                    case "OP_EQUALVERIFY":
-                        String x = stack.pop();
-                        String y = stack.pop();
-                        if (!x.equals(y)) {
-                            throw new RuntimeException("OP_EQUALVERIFY falló");
-                        }
-                        break;
+                BasicOpCode op = (BasicOpCode) element;
 
-                    case "OP_HASH160":
-                        String value = stack.pop();
-                        stack.push(MockCrypto.hash160(value));
-                        break;
+                boolean result = op.execute(stack);
 
-                    case "OP_CHECKSIG":
-                        String pubKey = stack.pop();
-                        String sig = stack.pop();
-                        stack.push(MockCrypto.checkSig(sig, pubKey) ? "1" : "0");
-                        break;
-
-                    default:
-                        // Si no es opcode, es dato literal
-                        stack.push(token);
-                        break;
+                if (!result) {
+                    return false;
                 }
-
-                stack.printStack(); // Modo trace básico
             }
 
-            return !stack.isEmpty() && !stack.pop().equals("0");
+            if (trace) {
+                System.out.println("Stack: " + stack);
+            }
+        }
 
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+        if (stack.isEmpty()) {
             return false;
         }
+
+        return !stack.peek().equals("0");
     }
 }
-
