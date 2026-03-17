@@ -1,9 +1,12 @@
 package test;
 
+import interpreter.ScriptInterpreter;
+import opcodes.*;
+
 import org.junit.jupiter.api.Test;
+
 import java.util.Arrays;
 import java.util.List;
-import interpreter.ScriptInterpreter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,10 +17,10 @@ public class ScriptInterpreterTest {
 
         ScriptInterpreter interpreter = new ScriptInterpreter();
 
-        List<String> script = Arrays.asList(
-                "A",
-                "OP_DUP",
-                "OP_EQUAL"
+        List<OpCode> script = Arrays.asList(
+                new PushData("A"),
+                new OpDup(),
+                new OpEqual()
         );
 
         boolean result = interpreter.execute(script);
@@ -30,10 +33,10 @@ public class ScriptInterpreterTest {
 
         ScriptInterpreter interpreter = new ScriptInterpreter();
 
-        List<String> script = Arrays.asList(
-                "5",
-                "5",
-                "OP_EQUAL"
+        List<OpCode> script = Arrays.asList(
+                new PushData("5"),
+                new PushData("5"),
+                new OpEqual()
         );
 
         boolean result = interpreter.execute(script);
@@ -46,10 +49,10 @@ public class ScriptInterpreterTest {
 
         ScriptInterpreter interpreter = new ScriptInterpreter();
 
-        List<String> script = Arrays.asList(
-                "5",
-                "6",
-                "OP_EQUAL"
+        List<OpCode> script = Arrays.asList(
+                new PushData("5"),
+                new PushData("6"),
+                new OpEqual()
         );
 
         boolean result = interpreter.execute(script);
@@ -62,8 +65,8 @@ public class ScriptInterpreterTest {
 
         ScriptInterpreter interpreter = new ScriptInterpreter();
 
-        List<String> script = Arrays.asList(
-                "OP_DUP"
+        List<OpCode> script = Arrays.asList(
+                new OpDup()
         );
 
         boolean result = interpreter.execute(script);
@@ -76,10 +79,10 @@ public class ScriptInterpreterTest {
 
         ScriptInterpreter interpreter = new ScriptInterpreter();
 
-        List<String> script = Arrays.asList(
-                "SIG(MyPublicKey)",
-                "MyPublicKey",
-                "OP_CHECKSIG"
+        List<OpCode> script = Arrays.asList(
+                new PushData("SIG(MyPublicKey)"),
+                new PushData("MyPublicKey"),
+                new OpCheckSig()
         );
 
         boolean result = interpreter.execute(script);
@@ -92,10 +95,10 @@ public class ScriptInterpreterTest {
 
         ScriptInterpreter interpreter = new ScriptInterpreter();
 
-        List<String> script = Arrays.asList(
-                "SIG(fakeKey)",
-                "MyPublicKey",
-                "OP_CHECKSIG"
+        List<OpCode> script = Arrays.asList(
+                new PushData("SIG(fakeKey)"),
+                new PushData("MyPublicKey"),
+                new OpCheckSig()
         );
 
         boolean result = interpreter.execute(script);

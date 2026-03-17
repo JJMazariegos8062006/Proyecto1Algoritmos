@@ -1,6 +1,7 @@
 package App;
 
 import interpreter.ScriptInterpreter;
+import opcodes.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,14 +12,14 @@ public class Main {
 
         ScriptInterpreter interpreter = new ScriptInterpreter();
 
-        List<String> script = Arrays.asList(
-                "SIG(MyPublicKey)",
-                "MyPublicKey",
-                "OP_DUP",
-                "OP_HASH160",
-                "HASH160(MyPublicKey)",
-                "OP_EQUALVERIFY",
-                "OP_CHECKSIG"
+        List<OpCode> script = Arrays.asList(
+                new PushData("SIG(MyPublicKey)"),
+                new PushData("MyPublicKey"),
+                new OpDup(),
+                new OpHash160(),
+                new PushData("HASH160(MyPublicKey)"),
+                new OpEqualVerify(),
+                new OpCheckSig()
         );
 
         boolean result = interpreter.execute(script);
