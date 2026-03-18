@@ -5,7 +5,12 @@ import opcodes.*;
 
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * Clase principal del programa.
+ *
+ * Se encarga de crear un script de ejemplo y ejecutar el intérprete
+ * de Bitcoin Script. Muestra en consola si la transacción es válida o no.
+ */
 public class Main {
 
     public static void main(String[] args) {

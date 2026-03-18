@@ -2,7 +2,9 @@ package opcodes;
 
 import java.util.Deque;
 import java.util.Iterator;
-
+/**
+ * Copia el segundo elemento de la pila y lo coloca en la cima.
+ */
 public class OpOver implements BasicOpCode {
 
     @Override

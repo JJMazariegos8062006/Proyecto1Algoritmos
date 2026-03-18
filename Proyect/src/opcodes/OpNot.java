@@ -1,7 +1,9 @@
 package opcodes;
 
 import java.util.Deque;
-
+/**
+ * Niega el valor lógico del elemento superior de la pila.
+ */
 public class OpNot implements BasicOpCode {
 
     @Override

@@ -1,7 +1,11 @@
 package opcodes;
 
 import model.ScriptStack;
-
+/**
+ * Operación OP_EQUAL.
+ * Compara los dos elementos superiores de la pila.
+ * Si son iguales empuja true, si no empuja false.
+ */
 public class OpEqual implements OpCode {
 
     @Override

@@ -1,7 +1,9 @@
 package opcodes;
 
 import java.util.Deque;
-
+/**
+ * Intercambia los dos elementos superiores de la pila.
+ */
 public class OpSwap implements BasicOpCode {
 
     @Override

@@ -2,6 +2,9 @@ package opcodes;
 
 import java.util.Deque;
 
+/**
+ * Operación lógica entre los valores de la pila.
+ */
 public class OpBoolOr implements BasicOpCode {
 
     @Override

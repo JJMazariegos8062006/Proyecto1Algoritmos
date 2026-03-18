@@ -2,7 +2,15 @@ package model;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-
+/**
+ * Representa la pila utilizada por el intérprete.
+ *
+ * Esta clase encapsula una estructura tipo stack usando ArrayDeque,
+ * permitiendo operaciones como push, pop y peek.
+ *
+ * Es la estructura principal donde se almacenan los datos durante
+ * la ejecución del script.
+ */
 public class ScriptStack {
 
     private Deque<String> stack = new ArrayDeque<>();

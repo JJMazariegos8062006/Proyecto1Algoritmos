@@ -1,7 +1,11 @@
 package opcodes;
 
 import java.util.Deque;
-
+/**
+ * Operación aritmética sobre la pila.
+ * Toma los valores superiores, realiza la operación
+ * y guarda el resultado en la pila.
+ */
 public class OpSub implements BasicOpCode {
 
     @Override
